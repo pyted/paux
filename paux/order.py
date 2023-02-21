@@ -25,7 +25,7 @@ def get_commission_data(
     :param closeCommissionRate: 平仓手续费率
     :return
         {
-            'sellMoney' : <平仓剩余金额>, # 保留4个小数位
+            'closeMoney' : <平仓剩余金额>, # 保留4个小数位
             'commission' : <开仓与平仓手续费之和>, # 保留4个小数位
             'profitRate' : <利润率>, # 保留4个小数位
         }
@@ -34,10 +34,10 @@ def get_commission_data(
         buyCommission = openMoney * lever * openCommissionRate
         sellCommission = (closePrice / openPrice) * openMoney * lever * closeCommissionRate
         commission = round(buyCommission + sellCommission, 4)
-        sellMoney = round((closePrice - openPrice) / openPrice * lever * openMoney + openMoney - commission, 4)
-        profitRate = round((sellMoney - openMoney) / openMoney, 4)
+        closeMoney = round((closePrice - openPrice) / openPrice * lever * openMoney + openMoney - commission, 4)
+        profitRate = round((closeMoney - openMoney) / openMoney, 4)
         return dict(
-            sellMoney=sellMoney,
+            closeMoney=closeMoney,
             commission=commission,
             profitRate=profitRate,
         )
@@ -45,10 +45,10 @@ def get_commission_data(
         buyCommission = openMoney * lever * openCommissionRate
         sellCommission = (2 * openPrice - closePrice) / openPrice * openMoney * lever * closeCommissionRate
         commission = round(buyCommission + sellCommission, 4)
-        sellMoney = (openPrice - closePrice) / openPrice * openMoney * lever + openMoney - commission
-        profitRate = round((sellMoney - openMoney) / openMoney, 4)
+        closeMoney = (openPrice - closePrice) / openPrice * openMoney * lever + openMoney - commission
+        profitRate = round((closeMoney - openMoney) / openMoney, 4)
         return dict(
-            sellMoney=sellMoney,
+            closeMoney=closeMoney,
             commission=commission,
             profitRate=profitRate,
         )
