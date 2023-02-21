@@ -10,8 +10,8 @@ def get_commission_data(
         openPrice: Union[int, float],
         closePrice: Union[int, float],
         lever: Union[int, float],
-        buyCommissionRate: Union[int, float],
-        sellCommissionRate: Union[int, float]
+        openCommissionRate: Union[int, float],
+        closeCommissionRate: Union[int, float]
 ) -> dict:
     '''
     :param posSide: 持仓方向
@@ -21,8 +21,8 @@ def get_commission_data(
     :param openPrice: 开仓价格
     :param closePrice: 平仓价格
     :param lever: 杠杆倍数
-    :param buyCommissionRate: 开仓手续费率
-    :param sellCommissionRate: 平仓手续费率
+    :param openCommissionRate: 开仓手续费率
+    :param closeCommissionRate: 平仓手续费率
     :return
         {
             'sellMoney' : <平仓剩余金额>, # 保留4个小数位
@@ -31,8 +31,8 @@ def get_commission_data(
         }
     '''
     if posSide.upper() == 'LONG':
-        buyCommission = openMoney * lever * buyCommissionRate
-        sellCommission = (closePrice / openPrice) * openMoney * lever * sellCommissionRate
+        buyCommission = openMoney * lever * openCommissionRate
+        sellCommission = (closePrice / openPrice) * openMoney * lever * closeCommissionRate
         commission = round(buyCommission + sellCommission, 4)
         sellMoney = round((closePrice - openPrice) / openPrice * lever * openMoney + openMoney - commission, 4)
         profitRate = round((sellMoney - openMoney) / openMoney, 4)
@@ -42,8 +42,8 @@ def get_commission_data(
             profitRate=profitRate,
         )
     elif posSide.upper() == 'SHORT':
-        buyCommission = openMoney * lever * buyCommissionRate
-        sellCommission = (2 * openPrice - closePrice) / openPrice * openMoney * lever * sellCommissionRate
+        buyCommission = openMoney * lever * openCommissionRate
+        sellCommission = (2 * openPrice - closePrice) / openPrice * openMoney * lever * closeCommissionRate
         commission = round(buyCommission + sellCommission, 4)
         sellMoney = (openPrice - closePrice) / openPrice * openMoney * lever + openMoney - commission
         profitRate = round((sellMoney - openMoney) / openMoney, 4)
