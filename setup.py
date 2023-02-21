@@ -1,25 +1,18 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
-# Note: To use the 'upload' functionality of this file, you must:
-#   $ pipenv install twine --dev
-
 import io
 import os
 import sys
 from shutil import rmtree
 from setuptools import find_packages, setup, Command
 
-# [修改此处] ========================================================
-NAME = 'paux'  # 需要与代码包名字一直，pip install后面加的就是这个NAME
-DESCRIPTION = "finance util"  # 描述
-URL = "https://github.com/pyted/pix"  # 你的GITHUB项目地址
-EMAIL = 'pyted@outlook.com'  # 你的邮箱
-AUTHOR = 'pyted'  # 在pip上注册的用户名
-REQUIRES_PYTHON = '>=3.6.0'  # 限定Python的版本需要>= 3.6.0
-VERSION = '1.0.6'  # 当前版本
+NAME = 'paux'
+DESCRIPTION = "finance trade tool"
+URL = "https://github.com/pyted/paux"
+EMAIL = 'pyted@outlook.com'
+AUTHOR = 'pyted'
+REQUIRES_PYTHON = '>=3.6.0'
+VERSION = '1.0.6'
 
-REQUIRED = [  # 在pip install 本包的时候，自动安装redis
+REQUIRED = [
     'numpy',
     'pandas',
     'pendulum',
@@ -27,10 +20,6 @@ REQUIRED = [  # 在pip install 本包的时候，自动安装redis
 ]
 
 EXTRAS = {}
-# ===================================================================
-
-# -------------------------------------------------------------------
-# -后面的代码可以不用看了------------------------------------------------
 
 here = os.path.abspath(os.path.dirname(__file__))
 try:
