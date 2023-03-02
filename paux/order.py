@@ -61,6 +61,8 @@ def round_simulate(price) -> float:
     '''
     if isinstance(price, int):
         return price
+    if price == 0:
+        return price
     price_0_00001 = 0.00001 * price
     if price_0_00001 < 1:
         ndigits = len(str(int(1 / price_0_00001)))
