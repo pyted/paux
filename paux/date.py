@@ -31,6 +31,26 @@ def __to_datetime_by_pattern(date: str, fmt_patterns: list, timezone: str = None
     return None
 
 
+def tomorrow(
+        date: Union[int, float, str, datetime.date],
+        timezone: str = None,
+):
+    date = to_datetime(date=date, timezone=timezone)
+    date2 = datetime.datetime(year=date.year, month=date.month, day=date.day, hour=date.hour, minute=date.minute,
+                              second=date.second)  # datetime.datetime类型
+    date3 = date2 + datetime.timedelta(days=1)  # datetime.datetime类型
+    next_day = pendulum.datetime(
+        year=date3.year,
+        month=date3.month,
+        day=date3.day,
+        hour=date3.hour,
+        minute=date3.minute,
+        second=date3.second,
+        tz=timezone
+    )
+    return next_day
+
+
 # 转化为毫秒时间戳
 def to_ts(
         date: Union[int, float, str, datetime.date, None],
@@ -313,3 +333,7 @@ if __name__ == '__main__':
     # print(to_time(date='01/02/2022 03', timezone=None))
     # print(to_time(date='01/02/2022', timezone=None))
     # print(to_time(date='01:02:03', timezone=None))
+    timezone = 'America/New_York'
+    date1 = tomorrow('2021-11-06', timezone=timezone)
+    date2 = tomorrow('2021-11-07', timezone=timezone)
+    print((to_ts(date2,timezone=timezone) - to_ts(date1,timezone=timezone))/60000)
