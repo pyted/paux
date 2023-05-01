@@ -1,5 +1,6 @@
 from paux import date
 from paux import digit
+from paux import file
 from paux import filter
 from paux import log
 from paux import order
@@ -8,5 +9,4 @@ from paux import process
 from paux import system
 from paux import thread
 
-
-__version__ = '1.0.12'
+__version__ = '1.0.13'
