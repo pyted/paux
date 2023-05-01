@@ -9,4 +9,4 @@ from paux import system
 from paux import thread
 
 
-__version__ = '1.0.11'
+__version__ = '1.0.12'
