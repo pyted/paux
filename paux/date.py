@@ -282,6 +282,30 @@ def is_period_allowed(
     return False
 
 
+# 计算一个月有多少天
+def get_month_days(
+        year: Union[str, int],
+        month: Union[str, int],
+        timezone: str = None
+):
+    year = int(year)
+    month = int(month)
+    start_date = to_datetime(
+        date='{:04d}-{:02d}-{:02d}'.format(year, month, 1),
+        timezone=timezone,
+    )
+    if month == 12:
+        month = 1
+        year = year + 1
+    else:
+        month = month + 1
+    end_date = to_datetime(
+        date='{:04d}-{:02d}-{:02d}'.format(year, month, 1),
+        timezone=timezone,
+    )
+    return (end_date - start_date).days
+
+
 if __name__ == '__main__':
     pass
     # 测试to_ts
@@ -336,4 +360,5 @@ if __name__ == '__main__':
     timezone = 'America/New_York'
     date1 = tomorrow('2021-11-06', timezone=timezone)
     date2 = tomorrow('2021-11-07', timezone=timezone)
-    print((to_ts(date2,timezone=timezone) - to_ts(date1,timezone=timezone))/60000)
+    print((to_ts(date2, timezone=timezone) - to_ts(date1, timezone=timezone)) / 60000)
+    print(get_month_days(year='2020', month='02', timezone='America/New_York'))
