@@ -202,7 +202,7 @@ def to_time(
     elif isinstance(date, str) and re.match(time_patterns[0][1], date):
         time = pendulum.from_format(
             date, time_patterns[0][0], tz=timezone
-        )
+        ).time()
     elif isinstance(date, int) or isinstance(date, float) or isinstance(date, str) or isinstance(date, datetime.date):
         time = to_datetime(date, timezone).time()
     else:
